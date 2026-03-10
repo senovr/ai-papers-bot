@@ -8,9 +8,8 @@ from .repositories import (
     ConceptRepository,
     PaperRepository,
     UserRepository,
-    get_session_factory,
 )
-from .session import get_db_session
+from .session import get_db_session, get_session_factory
 
 __all__ = [
     "AsyncSession",

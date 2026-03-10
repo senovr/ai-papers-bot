@@ -48,7 +48,7 @@ class UserRepository(BaseRepository):
                 User.daily_digest_enabled == daily_digest,
             )
         )
-        return result.scalars().all()
+        return list(result.scalars().all())
 
 
 class PaperRepository(BaseRepository):
@@ -71,7 +71,7 @@ class PaperRepository(BaseRepository):
         result = await self.session.execute(
             select(Paper).order_by(Paper.published_date.desc()).limit(limit).offset(offset)
         )
-        return result.scalars().all()
+        return list(result.scalars().all())
 
 
 class AnalysisRepository(BaseRepository):
@@ -107,7 +107,7 @@ class AnalysisRepository(BaseRepository):
             .order_by(Analysis.rating.desc())
             .limit(limit)
         )
-        return result.scalars().all()
+        return list(result.scalars().all())
 
 
 class ConceptRepository(BaseRepository):
@@ -118,7 +118,7 @@ class ConceptRepository(BaseRepository):
         result = await self.session.execute(
             select(Concept).where(Concept.analysis_id == analysis_id).order_by(Concept.id)
         )
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def create(self, **kwargs) -> Concept:
         """Create new concept."""

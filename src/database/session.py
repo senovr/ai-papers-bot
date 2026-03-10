@@ -5,22 +5,16 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from src.core.config import get_settings
+from src.core.config import settings
 
-settings = get_settings()
-
-# Create async engine
-engine = create_async_engine(
-    settings.database_url,
+async_engine = create_async_engine(
+    str(settings.database_url),
     pool_size=settings.database_pool_size,
     max_overflow=settings.database_max_overflow,
     echo=settings.debug,
     future=True,
 )
-
-# Create session factory
-async_session_factory = async_sessionmaker(
-    engine,
+async_session_factory: async_sessionmaker[AsyncSession] = async_engine(
     class_=AsyncSession,
     expire_on_commit=False,
     autocommit=False,
@@ -29,7 +23,6 @@ async_session_factory = async_sessionmaker(
 
 
 def get_session_factory() -> async_sessionmaker:
-    """Get session factory."""
     return async_session_factory
 
 
@@ -45,3 +38,6 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
         raise
     finally:
         await session.close()
+
+
+get_session = get_db_session

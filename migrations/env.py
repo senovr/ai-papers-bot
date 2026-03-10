@@ -8,7 +8,7 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from src.core.config import get_settings
+from src.core.config import settings
 from src.database.models import Base
 
 # this is the Alembic Config object
@@ -46,10 +46,10 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     """Run migrations using async engine."""
-    settings = get_settings()
-
     configuration = config.get_section(config.config_ini_section)
-    configuration["sqlalchemy.url"] = settings.database_url
+    if configuration is None:
+        configuration = {}
+    configuration["sqlalchemy.url"] = str(settings.database_url)
 
     connectable = async_engine_from_config(
         configuration,
