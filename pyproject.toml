@@ -1,0 +1,60 @@
+[project]
+name = "ai-papers-bot"
+version = "0.1.0"
+description = "AI-powered arXiv paper digest bot for Telegram"
+authors = [{ name = "senovr" }]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+
+dependencies = [
+    "aiogram>=3.15.0",
+    "aiohttp>=3.11.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=5.3.0",
+    "sqlalchemy>=2.0.36",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "anthropic>=0.42.0",
+    "google-generativeai>=0.8.3",
+    "apscheduler>=3.11.0",
+    "arxiv>=2.1.3",
+    "tenacity>=9.0.0",
+    "structlog>=25.1.0",
+    "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.25.0",
+    "pytest-cov>=6.0.0",
+    "black>=25.1.0",
+    "ruff>=0.9.0",
+    "mypy>=1.14.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+]
