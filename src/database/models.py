@@ -6,11 +6,9 @@ from typing import Optional
 
 from sqlalchemy import (
     ARRAY,
-    JSON,
     Boolean,
     DateTime,
     Enum,
-    Float,
     ForeignKey,
     Integer,
     String,

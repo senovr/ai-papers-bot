@@ -35,8 +35,8 @@ async def cmd_start(message: Message) -> None:
     from ..keyboards.digest import get_topic_keyboard
 
     await message.answer(
-        f"👋 Добро пожаловать в <b>AI Papers Digest Bot</b>!\n\n"
-        f"Я помогаю вам быть в курсе последних научных статей о LLM и AI в нефтегазовой отрасли.\n\n"
+        "👋 Добро пожаловать в <b>AI Papers Digest Bot</b>!\n\n"
+        "Я помогаю вам быть в курсе последних научных статей о LLM и AI в нефтегазовой отрасли.\n\n"
         "Выберите темы для подписки:\n\n"
         "• 📊 <b>LLM General</b> - Промпт-инжиниринг, архитектура LLM\n"
         "• 🛢️ <b>LLM в НГ</b> - LLM в геологии, геофизике, бурении\n"
@@ -83,7 +83,6 @@ async def cmd_digest(message: Message) -> None:
 
 async def _send_digest(message: Message, topic: Topic) -> None:
     """Send digest for specific topic."""
-    from ..keyboards.digest import get_digest_keyboard
     from src.database.repositories import AnalysisRepository
 
     async with get_session() as session:

@@ -5,7 +5,7 @@ from typing import AsyncIterator
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.webhook.aiohttp_server import SimpleRequestHandler, WebRequestHandler
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler
 from aiohttp import web
 
 from src.core.config import settings
@@ -61,7 +61,6 @@ async def start_webhook(
     webhook_url: str | None = None,
 ) -> None:
     """Start bot in webhook mode (production)."""
-    from aiohttp import web
 
     if webhook_url is None:
         webhook_url = f"{settings.webhook_url}{webhook_path}"

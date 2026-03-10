@@ -1,8 +1,5 @@
 """Application configuration."""
 
-import os
-from functools import lru_cache
-
 from pydantic import Field, PostgresDsn, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

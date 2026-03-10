@@ -43,7 +43,7 @@ class UserRepository(BaseRepository):
         """Get all active users subscribed to a topic."""
         result = await self.session.execute(
             select(User).where(
-                User.is_active == True,
+                User.is_active,
                 User.subscriptions.contains([topic]),
                 User.daily_digest_enabled == daily_digest,
             )
