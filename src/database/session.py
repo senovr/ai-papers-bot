@@ -11,10 +11,12 @@ async_engine = create_async_engine(
     str(settings.database_url),
     pool_size=settings.database_pool_size,
     max_overflow=settings.database_max_overflow,
+    pool_recycle=settings.database_pool_recycle,
     echo=settings.debug,
     future=True,
 )
-async_session_factory: async_sessionmaker[AsyncSession] = async_engine(
+async_session_factory: async_sessionmaker[AsyncSession] = async_sessionmaker(
+    bind=async_engine,
     class_=AsyncSession,
     expire_on_commit=False,
     autocommit=False,

@@ -109,6 +109,26 @@ class AnalysisRepository(BaseRepository):
         )
         return list(result.scalars().all())
 
+    async def get_by_ids(self, analysis_ids: list[int]) -> list[Analysis]:
+        """Get analyses by list of IDs."""
+        if not analysis_ids:
+            return []
+        result = await self.session.execute(select(Analysis).where(Analysis.id.in_(analysis_ids)))
+        return list(result.scalars().all())
+
+    async def get_by_topic_since(self, topic: Topic, since, limit: int = 50) -> list[Analysis]:
+        """Get analyses for a topic created since a given datetime."""
+        result = await self.session.execute(
+            select(Analysis)
+            .where(
+                Analysis.topic == topic,
+                Analysis.created_at >= since,
+            )
+            .order_by(Analysis.rating.desc())
+            .limit(limit)
+        )
+        return list(result.scalars().all())
+
 
 class ConceptRepository(BaseRepository):
     """Repository for Concept model."""
